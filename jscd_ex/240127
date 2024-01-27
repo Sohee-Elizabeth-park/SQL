@@ -1,0 +1,37 @@
+-- 5-11) 각 부서내에서 각 직책별로 몇 명의 인원이 있는지를 나타내시오.
+1) 부서 ID별로 출력
+SELECT se.DEPT_ID AS 부서ID, sd.NAME AS 부서명, se.title AS 직책, count(se.id) AS 인원수
+FROM S_EMP se , S_DEPT sd 
+WHERE se.DEPT_ID = sd.ID 
+GROUP BY se.DEPT_ID, se.title, sd.NAME 
+ORDER BY se.DEPT_ID ASC;
+
+2) 부서별로 출력 (부서 ID 무시)
+SELECT sd.NAME AS 부서명, se.title AS 직책, count(se.id) AS 인원수
+FROM S_EMP se , S_DEPT sd 
+WHERE se.DEPT_ID = sd.ID 
+GROUP BY se.title, sd.NAME 
+ORDER BY sd.NAME ASC;
+
+-- 5-12) 각 부서내에서 몇 명의 직원이 근무하는지를 나타내시오.
+1) 부서 ID별로 (부서명은 같아도 ID별로 각 담당하는 지역이 다름)
+SELECT se.DEPT_ID AS 부서ID, sd.NAME AS 부서명, count(se.id) AS 근무인원수
+FROM S_EMP se , S_DEPT sd 
+WHERE se.DEPT_ID = sd.ID 
+GROUP BY se.DEPT_ID , sd.NAME 
+ORDER BY se.DEPT_ID  ASC;
+
+2) 부서명으로 (지역, ID 상관없이)
+SELECT sd.NAME AS 부서명, count(se.id) AS 근무인원수
+FROM S_EMP se , S_DEPT sd 
+WHERE se.DEPT_ID = sd.ID 
+GROUP BY sd.NAME 
+ORDER BY sd.NAME  ASC;
+
+-- 5-13) 각 부서별로 급여의 최소값과 최대값을 나타내시오. 단, 최소값과 최대값이 같은 부서는 출력하지 마시오.
+SELECT sd.NAME AS 부서명, min(se.SALARY) AS 급여_최소값 , MAX(se.SALARY) AS 급여_최대값 
+FROM S_EMP se , S_DEPT sd 
+WHERE se.DEPT_ID = sd.ID
+GROUP BY sd.NAME 
+HAVING NOT min(se.SALARY) = MAX(se.SALARY)
+ORDER BY sd.NAME ;
