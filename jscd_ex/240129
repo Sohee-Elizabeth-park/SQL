@@ -1,0 +1,16 @@
+-- 6-17) 직원 테이블(s_emp)과 고객 테이블(s_customer)에서 사원의 이름과 사번, 그리고 각 사원의 담당고객 이름을 나타내시오. 단, 고객에 대하여 담당영업사원이 없더라도 모든 고객의 이름을 나타내고, 사번 순으로 오름차순 정렬하시오.
+SELECT se.ID 직원ID, se.NAME 직원명, sc.NAME 담당고객명
+FROM S_EMP se, S_CUSTOMER sc
+WHERE se.ID (+) = sc.SALES_REP_ID
+ORDER BY se.id ASC;
+
+-- 6-18) 직원 중에 '김정미'와 같은 직책을 가지는 사원의 이름과 직책, 급여, 부서번호를 나타내시오. (self join 이용할 것)
+SELECT b.NAME, b.TITLE, b.SALARY, b.DEPT_ID
+FROM S_EMP a, S_EMP b
+WHERE a.NAME = '김정미' AND a.TITLE = b.TITLE;
+
+--7-19) 가장 적은 평균급여를 받는 직책에 대해 그 직책과 평균급여를 나타내시오.
+SELECT title, avg(salary)
+FROM S_EMP
+GROUP BY title
+HAVING avg(salary) = (SELECT min(avg(SALARY)) FROM S_EMP GROUP BY title;
