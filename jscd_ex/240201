@@ -1,0 +1,11 @@
+-- 13-20) 현재 유저가 소유한 모든 sequence 정보를 출력하시오.
+SELECT SEQUENCE_name, min_value, max_value, INCREMENT_by, last_number
+FROM USER_SEQUENCES ;
+
+-- 13-21) s_emp 테이블에서 이름은 홍길동, 급여는 2000, 나머지는 Null을 입력하되, 사번은 sequence값을 이용하시오.
+INSERT INTO S_EMP (id, name, mailid, START_DATE, MANAGER_ID, TITLE, DEPT_ID, SALARY, COMMISION_PCT)
+VALUES (c_emp_id.nextval, '홍길동', NULL, NULL, NULL, NULL, NULL, 2000, NULL);
+
+-- 13-22) s_emp 테이블의 이름 컬럼에 인덱스를 추가하시오.
+CREATE INDEX s_emp_index
+ON s_emp(name);
