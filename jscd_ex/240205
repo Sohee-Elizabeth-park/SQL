@@ -1,0 +1,12 @@
+-- 14-28) s_emp테이블에서 dept_id 별로 salary 순으로 순위 매겨 정렬하시오. (id, name, salary, rank 컬럼 순으로 나타내기)
+SELECT DEPT_ID , NAME , SALARY ,
+rank() OVER (
+PARTITION BY DEPT_ID 
+ORDER BY SALARY desc
+) AS RANK
+FROM S_EMP se;
+
+-- 14-29) 자신의 급여가 자신이 속한 부서의 평균 급여보다 적은 직원에 대해 이름, 급여, 부서번호를 출력하시오.
+SELECT name, salary, dept_id
+FROM s_emp OUTER
+WHERE SALARY < (SELECT avg(SALARY) FROM s_emp WHERE dept_id = OUTER.dept_id);
